@@ -375,9 +375,10 @@ JS_FUNCTION(DoExit) {
 }
 
 JS_FUNCTION(Kill) {
-  DJS_CHECK_ARGS(1, number);
-  int signal = JS_GET_ARG(0, number);
-  kill(getpid(), signal);
+  DJS_CHECK_ARGS(2, number, number);
+  int pid = JS_GET_ARG(0, number);
+  int signal = JS_GET_ARG(1, number);
+  uv_kill(pid, signal);
   return jerry_create_undefined();
 }
 
